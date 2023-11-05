@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'ProxyServer'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {// https://mvnrepository.com/artifact/io.netty/netty-all
+    implementation 'io.netty:netty-all:4.1.69.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+shadowJar{
+    minimize()
+
+    manifest{
+        attributes 'Main-Class': project.group // xd)))
+    }
+    archiveFileName = "${project.name}-${project.version}.jar"
+}
+
+test {
+    useJUnitPlatform()
+}
